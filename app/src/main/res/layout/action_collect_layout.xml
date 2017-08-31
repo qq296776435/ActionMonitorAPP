@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:clickable="true" android:id="@+id/actionCollectLaylout">
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Accelerometer"
+            android:id="@+id/acc_title"
+            android:layout_marginTop="100dp"
+            android:layout_alignParentTop="true" android:layout_centerHorizontal="true"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="X"
+            android:id="@+id/acc_x"
+            android:layout_alignTop="@+id/acc_y" android:layout_toStartOf="@+id/acc_title"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Y"
+            android:id="@+id/acc_y" android:layout_alignTop="@+id/acc_title" android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Z"
+            android:id="@+id/acc_z"
+            android:layout_alignTop="@+id/acc_y" android:layout_toEndOf="@+id/acc_title"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Gyroscope"
+        android:id="@+id/gyr_title"
+        android:layout_marginBottom="280dp"
+        android:layout_alignParentBottom="true" android:layout_centerHorizontal="true"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="X"
+            android:id="@+id/gyr_x"
+            android:layout_alignTop="@+id/gyr_y" android:layout_toStartOf="@+id/acc_title"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Y"
+            android:id="@+id/gyr_y" android:layout_alignTop="@+id/gyr_title" android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Z"
+            android:id="@+id/gyr_z"
+            android:layout_alignTop="@+id/gyr_y" android:layout_toEndOf="@+id/acc_title"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Action"
+            android:id="@+id/action_title" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"/>
+    <Button
+            android:text="Start"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:id="@+id/startButton"
+            android:background="@drawable/button_style"
+            android:layout_below="@+id/gyr_x" android:layout_toStartOf="@+id/action_title"
+            android:layout_marginTop="150dp"/>
+    <Button
+            android:text="Stop"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:id="@+id/stopButton"
+            android:background="@drawable/button_style"
+            android:layout_below="@+id/gyr_z" android:layout_toEndOf="@+id/action_title"
+            android:layout_marginTop="150dp"/>
+    <TextView
+            android:text="00"
+            android:layout_width="150dp"
+            android:layout_height="75dp"
+            android:id="@+id/remainingTime" android:layout_below="@+id/action_title"
+            android:layout_marginTop="250dp" android:layout_centerHorizontal="true"
+            android:textAlignment="center" android:textSize="60sp" android:textColor="#ff3030"/>
+
+</RelativeLayout>
