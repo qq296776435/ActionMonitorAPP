@@ -1,8 +1,8 @@
 package jnu.action;
 
 public class GyrData {
-    public float x, y, z;
-    public long timestamp;
+    float x, y, z;
+    long timestamp;
 
     public GyrData(float[] values, long timestamp){
         x = values[0];

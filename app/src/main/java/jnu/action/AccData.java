@@ -1,8 +1,8 @@
 package jnu.action;
 
 public class AccData {
-    public float x, y, z;
-    public long timestamp;
+    float x, y, z;
+    long timestamp;
 
     public AccData(float[] values, long timestamp){
         x = values[0];
@@ -16,6 +16,6 @@ public class AccData {
     }
 
     public String toString(){
-        return String.format("x:%.4f y:%.4f, z:%.4f", x, y ,z);
+        return String.format("x:%.4f y:%.4f, z:%.4f", x, y, z);
     }
 }

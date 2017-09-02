@@ -1,44 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" android:clickable="true" android:id="@+id/actionCollectLaylout">
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:id="@+id/actionCollectLaylout">
     <TextView
+            android:id="@+id/acc_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Accelerometer"
-            android:id="@+id/acc_title"
+            android:layout_alignParentTop="true"
             android:layout_marginTop="100dp"
-            android:layout_alignParentTop="true" android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:text="Accelerometer"/>
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="X"
             android:id="@+id/acc_x"
-            android:layout_alignTop="@+id/acc_y" android:layout_toStartOf="@+id/acc_title"/>
-    <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Y"
-            android:id="@+id/acc_y" android:layout_alignTop="@+id/acc_title" android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"/>
+            android:layout_alignTop="@+id/acc_y"
+            android:layout_toStartOf="@+id/acc_title"
+            android:text="X"/>
     <TextView
+            android:id="@+id/acc_y"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Z"
+            android:layout_alignTop="@+id/acc_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:text="Y"/>
+    <TextView
             android:id="@+id/acc_z"
-            android:layout_alignTop="@+id/acc_y" android:layout_toEndOf="@+id/acc_title"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_alignTop="@+id/acc_y"
+            android:layout_toEndOf="@+id/acc_title"
+            android:text="Z"/>
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Gyroscope"
-        android:id="@+id/gyr_title"
-        android:layout_marginBottom="280dp"
-        android:layout_alignParentBottom="true" android:layout_centerHorizontal="true"/>
+            android:id="@+id/gyr_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginBottom="280dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="Gyroscope"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

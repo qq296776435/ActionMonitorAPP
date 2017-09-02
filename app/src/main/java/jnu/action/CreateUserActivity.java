@@ -11,7 +11,7 @@ public class CreateUserActivity extends AppCompatActivity {
     private EditText ageInput;
     private EditText heightInput;
     private EditText weightInput;
-    private RadioGroup groupGender;
+    private RadioGroup genderGroup;
     private RadioButton selectedGender;
     private Button okButton;
     private String uid;
@@ -21,41 +21,33 @@ public class CreateUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user);
 
-        ageInput = (EditText)findViewById(R.id.ageInput);
-        heightInput = (EditText)findViewById(R.id.heightInput);
-        weightInput = (EditText)findViewById(R.id.weightInput);
-        groupGender = (RadioGroup)findViewById(R.id.radioGender);
-        uidText = (TextView)findViewById(R.id.uidText);
+        uidText = (TextView)findViewById(R.id.create_user_uid_txt);
+        ageInput = (EditText)findViewById(R.id.create_user_age_edit);
+        heightInput = (EditText)findViewById(R.id.create_user_height_edit);
+        weightInput = (EditText)findViewById(R.id.create_user_weight_edit);
+        genderGroup = (RadioGroup)findViewById(R.id.create_user_gender_radio);
+        selectedGender = (RadioButton)genderGroup.findViewById(genderGroup.getCheckedRadioButtonId());
+        okButton = (Button)findViewById(R.id.create_user_ok_btn);
 
         Intent intent = getIntent();
         uid = intent.getStringExtra("uid");
         uidText.setText(uid);
 
-        okButton = (Button)findViewById(R.id.ok_button);
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectedGender = (RadioButton)groupGender.findViewById(groupGender.getCheckedRadioButtonId());
-                int age = 0;
-                float height = 0.0f;
-                float weight = 0.0f;
+                int age = Integer.parseInt(ageInput.getText().toString());
+                float height = Float.parseFloat(heightInput.getText().toString());
+                float weight = Float.parseFloat(weightInput.getText().toString());
                 boolean isMale = selectedGender.getText().toString().equals("Male");
-                try{
-                    age = Integer.parseInt(ageInput.getText().toString());
-                    height = Float.parseFloat(heightInput.getText().toString());
-                    weight = Float.parseFloat(weightInput.getText().toString());
-                } catch (Exception e){
-                    Toast.makeText(CreateUserActivity.this, "Make sure your message is correctly input.", Toast.LENGTH_SHORT).show();
-                }
-                if (age>0 && height>0.0f && weight>0.0f) {
-                    User user = new User(uid, isMale, age, height, weight);
-                    user.save();
 
-                    Toast.makeText(CreateUserActivity.this, "New user created.", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(CreateUserActivity.this, ActionListActivity.class);
-                    intent.putExtra("uid", uid);
-                    startActivity(intent);
-                }
+                User user = new User(uid, isMale, age, height, weight);
+                user.save();
+
+                Toast.makeText(CreateUserActivity.this, "New user created.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(CreateUserActivity.this, ActionListActivity.class);
+                intent.putExtra("uid", uid);
+                startActivity(intent);
             }
         });
     }

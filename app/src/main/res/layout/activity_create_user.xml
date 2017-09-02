@@ -11,119 +11,132 @@
         tools:context="jnu.action.CreateUserActivity">
 
     <TextView
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:id="@+id/create_user_uid_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Text"
-            android:id="@+id/uidText" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp" />
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:gravity="center_horizontal"
+            android:text="TEXT"/>
 
     <LinearLayout
-            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:id="@+id/create_user_age_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@id/uidText"
-            android:id="@+id/ageLinear"
+            android:layout_below="@id/create_user_uid_txt"
             android:layout_marginTop="20sp"
             android:gravity="center">
         <TextView
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Age:"
-                android:id="@+id/ageView"
+                android:id="@+id/create_user_age_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:text="Age:"/>
         <EditText
+                android:id="@+id/create_user_age_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="Your Age"
                 android:ems="12"
-                android:id="@+id/ageInput"
-                android:layout_marginStart="20sp" />
+                android:layout_marginStart="20sp"
+                android:hint="your age"/>
     </LinearLayout>
 
     <LinearLayout
-            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:id="@+id/create_user_height_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@id/ageLinear"
-            android:id="@+id/heightLinear"
+            android:layout_below="@id/create_user_age_linear"
             android:layout_marginTop="20sp"
             android:gravity="center">
         <TextView
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Height:"
-                android:id="@+id/heightView"
+                android:id="@+id/create_user_height_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:text="Height:"/>
         <EditText
+                android:id="@+id/create_user_height_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
-                android:hint="height in (m), 2 decimal point"
                 android:ems="12"
-                android:id="@+id/heightInput"
-                android:layout_marginStart="20sp" />
+                android:layout_marginStart="20sp"
+                android:hint="height in (m), 2 decimal point"/>
     </LinearLayout>
 
     <LinearLayout
-            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:id="@+id/create_user_weight_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@id/heightLinear"
-            android:id="@+id/weightLinear"
+            android:layout_below="@id/create_user_height_linear"
             android:layout_marginTop="20sp"
             android:gravity="center">
         <TextView
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Weight:"
-                android:id="@+id/weightView"
+                android:id="@+id/create_user_weight_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:text="Weight:"/>
         <EditText
+                android:id="@+id/create_user_weight_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
-                android:hint="weight in (kg), 2 decimal point"
                 android:ems="12"
-                android:id="@+id/weightInput"
-                android:layout_marginStart="20sp" />
+                android:layout_marginStart="20sp"
+                android:hint="weight in (kg), 2 decimal point"/>
     </LinearLayout>
 
     <LinearLayout
+            android:id="@+id/create_user_gender_linear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/weightLinear"
+            android:layout_below="@id/create_user_weight_linear"
             android:layout_marginTop="20dp" >
         <TextView
+                android:id="@+id/create_user_gender_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Gender:"
-                android:id="@+id/genderText"
-                android:textStyle="bold" />
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:text="Gender:"/>
         <RadioGroup
+                android:id="@+id/create_user_gender_radio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/radioGender"
                 android:layout_marginStart="20dp"
                 android:orientation="horizontal">
             <RadioButton
+                    android:id="@+id/radioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Male"
-                    android:id="@+id/radioButton" android:checked="true"/>
+                    android:checked="true"
+                    android:text="Male"/>
             <RadioButton
+                    android:id="@+id/radioButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Female"
-                    android:id="@+id/radioButton2" android:checked="false"
-                    android:layout_marginStart="20dp"/>
+                    android:checked="false"
+                    android:layout_marginStart="20dp"
+                    android:text="Female"/>
         </RadioGroup>
-
     </LinearLayout>
 
     <Button
+            android:id="@+id/create_user_ok_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="OK"
-            android:id="@+id/ok_button" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true"
-            android:layout_marginBottom="50dp"/>
-
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="50dp"
+            android:text="OK"/>
 </RelativeLayout>

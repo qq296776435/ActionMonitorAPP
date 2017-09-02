@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="jnu.action.DataPlotActivity">
+    <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/data_plot_uid_txt"/>
+
+    <EditText
+            android:id="@+id/data_plot_uid_txt"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="15"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:hint="User ID"/>
+    <EditText
+            android:id="@+id/data_plot_gid_txt"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/data_plot_uid_txt"
+            android:hint="Group ID"/>
+    <Button
+            android:id="@+id/data_plot_acc_btn"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/data_plot_gyr_btn"
+            android:text="ACC"/>
+    <Button
+            android:id="@+id/data_plot_gyr_btn"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:text="GYR"/>
+</RelativeLayout>

@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 import org.litepal.crud.DataSupport;
 
@@ -16,17 +18,17 @@ import java.util.List;
 
 public class UserActivity extends AppCompatActivity {
     private EditText uidText;
-    private Button okButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
-        uidText = (EditText)findViewById(R.id.uidText);
-        okButton = (Button)findViewById(R.id.id_ok_button);
+        uidText = (EditText)findViewById(R.id.user_uid_edit);
+        Button okButton = (Button)findViewById(R.id.user_ok_btn);
+        Button queryButton = (Button)findViewById(R.id.user_query_btn);
 
-        uidText.setOnEditorActionListener(new TextView.OnEditorActionListener(){
+        uidText.setOnEditorActionListener(new OnEditorActionListener(){
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event){
                 if (actionId == EditorInfo.IME_ACTION_GO || (event!=null && event.getKeyCode()==KeyEvent.KEYCODE_ENTER)){
@@ -36,10 +38,17 @@ public class UserActivity extends AppCompatActivity {
                 return false;
             }
         });
-        okButton.setOnClickListener(new View.OnClickListener(){
+        okButton.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View v) {
                 onComplete();
+            }
+        });
+        queryButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserActivity.this, DataPlotActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -3,7 +3,6 @@ package jnu.action;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,15 +24,16 @@ public class ActionListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        ListView listView = (ListView) findViewById(R.id.action_list);
+        ListView listView = (ListView) findViewById(R.id.list_list);
+
         Intent intent = getIntent();
         uid = intent.getStringExtra("uid");
-        actionsArrayList = new ArrayList<>();
-        loadJson();
 
+        loadJson();
         ArrayAdapter<Action> actionArrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, actionsArrayList);
         listView.setAdapter(actionArrayAdapter);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
@@ -53,6 +53,7 @@ public class ActionListActivity extends AppCompatActivity {
 
     private void loadJson() {
         try {
+            actionsArrayList = new ArrayList<>();
             InputStream is = getAssets().open("actions.json");
             int size = is.available();
             byte[] buffer = new byte[size];
@@ -67,7 +68,6 @@ public class ActionListActivity extends AppCompatActivity {
                 JSONObject actionJson = actionsJsonList.getJSONObject(i);
                 actionsArrayList.add(new Action(actionJson.getInt("id"), actionJson.getString("name"), actionJson.getInt("duration")));
             }
-
         } catch (Exception e){
             e.printStackTrace();
         }

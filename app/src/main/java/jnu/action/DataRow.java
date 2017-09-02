@@ -27,7 +27,6 @@ public class DataRow extends DataSupport {
     }
 
     public DataRow(GyrData gyrData, int group_id){
-
         try {
             setGyr(gyrData.getValue());
             setTimestamp(gyrData.timestamp);
@@ -68,15 +67,28 @@ public class DataRow extends DataSupport {
         timestamp = t;
     }
 
-
-    public float[] getAcc(){
-        float[] result = {acc_x, acc_y, acc_z};
-        return result;
+    public float getAccX(){
+        return acc_x;
     }
 
-    public float[] getGyr(){
-        float[] result = {gyr_x, gyr_y, gyr_z};
-        return result;
+    public float getAccY(){
+        return acc_y;
+    }
+
+    public float getAccZ(){
+        return acc_z;
+    }
+
+    public float getGyrX(){
+        return gyr_x;
+    }
+
+    public float getGyrY(){
+        return gyr_y;
+    }
+
+    public float getGyrZ(){
+        return gyr_z;
     }
 
     public long getTimestamp(){
@@ -94,5 +106,4 @@ public class DataRow extends DataSupport {
     public String toString(){
         return String.format("(%f, %f, %f, %f, %f, %f)", acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z);
     }
-
 }

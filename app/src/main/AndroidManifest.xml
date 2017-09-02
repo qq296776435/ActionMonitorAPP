@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="jnu.action">
 
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
             android:name="org.litepal.LitePalApplication"
@@ -11,25 +11,24 @@
             android:label="@string/app_name"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-
-        <activity android:name="jnu.action.UserActivity">
+        <activity android:name=".UserActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <activity android:name="jnu.action.CreateUserActivity">
+        <activity android:name=".CreateUserActivity">
         </activity>
-
-        <activity android:name="jnu.action.ActionListActivity">
+        <activity android:name=".ActionListActivity">
         </activity>
-
-        <activity android:name="jnu.action.ActionCollectActivity">
+        <activity android:name=".ActionCollectActivity">
+        </activity>
+        <activity android:name=".DataPlotActivity"
+                android:screenOrientation="landscape">
         </activity>
 
         <service
-                android:name="jnu.action.ActionCollectService"
+                android:name=".ActionCollectService"
                 android:enabled="true"
                 android:exported="true">
         </service>
