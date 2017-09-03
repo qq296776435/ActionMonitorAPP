@@ -21,7 +21,6 @@ public class ActionCollectService extends Service implements SensorEventListener
     private Sensor acce;
     private Sensor gyro;
 
-    private int action_duration;
     private int group_id;
 
     private CountDownTimer startTimer;
@@ -32,13 +31,6 @@ public class ActionCollectService extends Service implements SensorEventListener
 
     private SoundPool sp;
     private int TICK, FINISH, START;
-
-    private static final HashMap<Integer, Integer> VALIDATE_SIZE = new HashMap<>();
-    static{
-        int[] times = {45, 60};
-        for(int time: times)
-            VALIDATE_SIZE.put(time, 180 * time);
-    }
 
     public void onCreate(){
         super.onCreate();
@@ -58,7 +50,7 @@ public class ActionCollectService extends Service implements SensorEventListener
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
-        action_duration = intent.getIntExtra("action_duration", 0);
+        int action_duration = intent.getIntExtra("action_duration", 0);
         group_id = intent.getIntExtra("group_id", 0);
         startTimer = new CountDownTimer(6000, 6000) {
             @Override
@@ -98,24 +90,27 @@ public class ActionCollectService extends Service implements SensorEventListener
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
         return new Binder();
     }
 
     @Override
     public void onSensorChanged(SensorEvent event){
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
             accDatas.add(new AccData(event.values, event.timestamp));
-        else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE)
+            popMsg(ActionCollectActivity.ACC_DATA, event.values);
+        }
+        else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE){
             gyrDatas.add(new GyrData(event.values, event.timestamp));
+            popMsg(ActionCollectActivity.GYR_DATA, event.values);
+        }
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy){
     }
 
-    public class Binder extends android.os.Binder{
-        public void cancel(){
+    class Binder extends android.os.Binder{
+        void cancel(){
             stopService();
         }
     }
@@ -161,6 +156,14 @@ public class ActionCollectService extends Service implements SensorEventListener
         msg.what = what;
         Bundle bundle = new Bundle();
         bundle.putInt("value", value);
+        msg.setData(bundle);
+        ActionCollectActivity.handler.sendMessage(msg);
+    }
+    private void popMsg(int what, float[] value){
+        Message msg = new Message();
+        msg.what = what;
+        Bundle bundle = new Bundle();
+        bundle.putFloatArray("value", value);
         msg.setData(bundle);
         ActionCollectActivity.handler.sendMessage(msg);
     }

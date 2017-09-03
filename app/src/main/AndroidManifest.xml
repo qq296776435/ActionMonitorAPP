@@ -21,7 +21,8 @@
         </activity>
         <activity android:name=".ActionListActivity">
         </activity>
-        <activity android:name=".ActionCollectActivity">
+        <activity android:name=".ActionCollectActivity"
+                android:screenOrientation="landscape">
         </activity>
         <activity android:name=".DataPlotActivity"
                 android:screenOrientation="landscape">

@@ -9,55 +9,138 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.*;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+
+import java.util.LinkedList;
 
 public class ActionCollectActivity extends AppCompatActivity implements ServiceConnection {
     private Acts acts;
     private boolean hasStarted;
     public static UIHandler handler;
 
-    public static final int POP_SUCCESS = 4;
-    public static final int POP_FAIL = 5;
+    static final int POP_SUCCESS = 7;
+    static final int ACC_DATA = 8;
+    static final int GYR_DATA = 9;
 
-    private TextView remainTime;
     private Button startButton;
     private Button stopButton;
+    private Button accButton;
+    private Button gyrButton;
+    private LineChart chart;
+
     private ActionCollectService.Binder myBinder;
+
+    private LineDataSet acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z;
+    private LineData linedata;
+
+    private final int[] RED = {R.color.Red};
+    private final int[] GREEN = {R.color.Green};
+    private final int[] BLUE = {R.color.Blue};
+
+    private int acc_count, gyr_count;
+    private static final int DISPLAY_SIZE = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.action_collect_layout);
 
+        TextView title = (TextView)findViewById(R.id.action_collect_title_txt);
+        TextView remainTime = (TextView)findViewById(R.id.action_colect_remain_txt);
+        startButton = (Button)findViewById(R.id.action_collect_start_btn);
+        stopButton = (Button)findViewById(R.id.action_collect_stop_btn);
+        accButton = (Button)findViewById(R.id.action_colect_acc_btn);
+        gyrButton = (Button)findViewById(R.id.action_colect_gyr_btn);
+        chart = (LineChart)findViewById(R.id.realtime_chart);
+
         handler = new UIHandler();
         Intent intent = getIntent();
         acts = (Acts)intent.getSerializableExtra("acts");
 
-        TextView title = (TextView) findViewById(R.id.action_title);
         title.setText(acts.getAction_name());
+        remainTime.setText(String.valueOf(acts.getDuration()));
         hasStarted = false;
 
-        remainTime = (TextView) findViewById(R.id.remainingTime);
-        startButton = (Button) findViewById(R.id.startButton);
-        stopButton = (Button) findViewById(R.id.stopButton);
+        acc_x = new LineDataSet(new LinkedList<Entry>(), "acc_x");
+        acc_x.setColors(RED, getApplicationContext());
+        acc_x.setCircleColors(RED, getApplicationContext());
+        acc_x.setCircleRadius(1f);
+        acc_y = new LineDataSet(new LinkedList<Entry>(), "acc_y");
+        acc_y.setColors(GREEN, getApplicationContext());
+        acc_y.setCircleColors(GREEN, getApplicationContext());
+        acc_y.setCircleRadius(1f);
+        acc_z = new LineDataSet(new LinkedList<Entry>(), "acc_z");
+        acc_z.setColors(BLUE, getApplicationContext());
+        acc_z.setCircleColors(BLUE, getApplicationContext());
+        acc_z.setCircleRadius(1f);
+        gyr_x = new LineDataSet(new LinkedList<Entry>(), "gyr_x");
+        gyr_x.setColors(RED, getApplicationContext());
+        gyr_x.setCircleColors(RED, getApplicationContext());
+        gyr_x.setCircleRadius(1f);
+        gyr_y = new LineDataSet(new LinkedList<Entry>(), "gyr_y");
+        gyr_y.setColors(GREEN, getApplicationContext());
+        gyr_y.setCircleColors(GREEN, getApplicationContext());
+        gyr_y.setCircleRadius(1f);
+        gyr_z = new LineDataSet(new LinkedList<Entry>(), "gyr_z");
+        gyr_z.setColors(BLUE, getApplicationContext());
+        gyr_z.setCircleColors(BLUE, getApplicationContext());
+        gyr_z.setCircleRadius(1f);
+        acc_count = 0;
+        gyr_count = 0;
 
-        remainTime.setText(String.format("%d", acts.getDuration()));
+        linedata = new LineData();
 
-        startButton.setOnClickListener(new View.OnClickListener() {
+        YAxis yAxis = chart.getAxisLeft();
+        yAxis.setAxisMaximum(10f);
+        yAxis.setAxisMinimum(-10f);
+        chart.setData(linedata);
+
+        startButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("CLICK_EVENT", "click start");
                 handleStart();
             }
         });
-        stopButton.setOnClickListener(new View.OnClickListener() {
+        stopButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v){
-                Log.d("CLICK_EVENT", "click stop");
                 handleStop();
+            }
+        });
+        accButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(linedata.getDataSetCount() == 3) {
+                    linedata.removeDataSet(0);
+                    linedata.removeDataSet(0);
+                    linedata.removeDataSet(0);
+                }
+                linedata.addDataSet(acc_x);
+                linedata.addDataSet(acc_y);
+                linedata.addDataSet(acc_z);
+                chart.notifyDataSetChanged();
+            }
+        });
+        gyrButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(linedata.getDataSetCount() == 3){
+                    linedata.removeDataSet(0);
+                    linedata.removeDataSet(0);
+                    linedata.removeDataSet(0);
+                }
+                linedata.addDataSet(gyr_x);
+                linedata.addDataSet(gyr_y);
+                linedata.addDataSet(gyr_z);
+                chart.notifyDataSetChanged();
             }
         });
     }
@@ -83,16 +166,33 @@ public class ActionCollectActivity extends AppCompatActivity implements ServiceC
                     acts.save();
                     unbind();
                     break;
-                case POP_FAIL:
-                    int sizef = msg.getData().getInt("value");
-                    Toast failToast = Toast.makeText(ActionCollectActivity.this, "Collect Failed!\n"+sizef, Toast.LENGTH_LONG);
-                    failToast.setGravity(Gravity.CENTER, 0, 0);
-                    LinearLayout toastView1 = (LinearLayout)failToast.getView();
-                    ImageView imageView1 = new ImageView(getApplicationContext());
-                    imageView1.setImageResource(R.drawable.cross);
-                    toastView1.addView(imageView1, 0);
-                    failToast.show();
-                    unbind();
+                case ACC_DATA:
+                    float[] acc = msg.getData().getFloatArray("value");
+                    if(acc_x.getEntryCount() == DISPLAY_SIZE) {
+                        acc_x.removeFirst();
+                        acc_y.removeFirst();
+                        acc_z.removeFirst();
+                    }
+                    acc_x.addEntry(new Entry(acc_count, acc[0]));
+                    acc_y.addEntry(new Entry(acc_count, acc[1]));
+                    acc_z.addEntry(new Entry(acc_count++, acc[2]));
+                    linedata.notifyDataChanged();
+                    chart.notifyDataSetChanged();
+                    chart.invalidate();
+                    break;
+                case GYR_DATA:
+                    float[] gyr = msg.getData().getFloatArray("value");
+                    if(gyr_x.getEntryCount() == DISPLAY_SIZE) {
+                        gyr_x.removeFirst();
+                        gyr_y.removeFirst();
+                        gyr_z.removeFirst();
+                    }
+                    gyr_x.addEntry(new Entry(gyr_count, gyr[0]));
+                    gyr_y.addEntry(new Entry(gyr_count, gyr[1]));
+                    gyr_z.addEntry(new Entry(gyr_count++, gyr[2]));
+                    linedata.notifyDataChanged();
+                    chart.notifyDataSetChanged();
+                    chart.invalidate();
                     break;
             }
         }
@@ -107,7 +207,6 @@ public class ActionCollectActivity extends AppCompatActivity implements ServiceC
     public void onServiceDisconnected(ComponentName componentName){
         myBinder = null;
     }
-
 
     private void unbind(){
         unbindService(this);
@@ -131,7 +230,7 @@ public class ActionCollectActivity extends AppCompatActivity implements ServiceC
     private void handleStop() {
         if (hasStarted && myBinder != null){
             hasStarted = false;
-            myBinder.cancel();   // ???
+            myBinder.cancel();
             Intent stopIntent = new Intent(this, ActionCollectService.class);
             stopService(stopIntent);
             Toast.makeText(ActionCollectActivity.this, "Collect Cancel", Toast.LENGTH_SHORT).show();
