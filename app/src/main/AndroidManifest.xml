@@ -14,6 +14,7 @@
         <activity android:name=".UserActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -21,10 +22,12 @@
         </activity>
         <activity android:name=".ActionListActivity">
         </activity>
-        <activity android:name=".ActionCollectActivity"
+        <activity
+                android:name=".ActionCollectActivity"
                 android:screenOrientation="landscape">
         </activity>
-        <activity android:name=".DataPlotActivity"
+        <activity
+                android:name=".DataPlotActivity"
                 android:screenOrientation="landscape">
         </activity>
 
@@ -34,6 +37,8 @@
                 android:exported="true">
         </service>
 
+        <activity android:name=".DataListActivity">
+        </activity>
     </application>
 
 </manifest>

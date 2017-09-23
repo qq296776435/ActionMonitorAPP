@@ -6,7 +6,6 @@ import org.litepal.crud.DataSupport;
 import java.io.Serializable;
 
 public class Acts extends DataSupport implements Serializable {
-    @Column(ignore = true)
     private String action_name;
     @Column(ignore = true)
     private int duration;
@@ -62,5 +61,10 @@ public class Acts extends DataSupport implements Serializable {
 
     public void setAction_id(int action_id) {
         this.action_id = action_id;
+    }
+
+    @Override
+    public String toString(){
+        return String.format("%s %d", action_name, group_id);
     }
 }

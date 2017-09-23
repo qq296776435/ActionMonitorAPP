@@ -1,5 +1,6 @@
 package jnu.action;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -39,6 +40,7 @@ public class DataPlotActivity extends AppCompatActivity {
         gidText = (EditText)findViewById(R.id.data_plot_gid_txt);
         Button accBtn = (Button)findViewById(R.id.data_plot_acc_btn);
         Button gyrBtn = (Button)findViewById(R.id.data_plot_gyr_btn);
+        Button actsBtn = (Button)findViewById(R.id.data_plot_acts_query_btn);
 
         accBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +72,33 @@ public class DataPlotActivity extends AppCompatActivity {
                 }
             }
         });
+
+        actsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String uid = uidText.getText().toString();
+                if(uid.equals("")) {
+                    Toast t = Toast.makeText(getApplicationContext(), "User ID cannot be empty.", Toast.LENGTH_SHORT);
+                    t.setGravity(Gravity.CENTER, 0, 0);
+                    t.show();
+                }
+                else {
+                    Intent intent = new Intent(DataPlotActivity.this, DataListActivity.class);
+                    intent.putExtra("uid", uid);
+                    startActivityForResult(intent, 1);
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(requestCode == 1){
+            if(resultCode == RESULT_OK){
+                String gid = data.getStringExtra("gid");
+                gidText.setText(gid);
+            }
+        }
     }
 
     private List<DataRow> queryDatarows(String uid, String gid){

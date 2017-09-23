@@ -44,4 +44,13 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:text="GYR"/>
+    <Button
+            android:id="@+id/data_plot_acts_query_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/data_plot_gid_txt"
+            android:layout_marginStart="10dp"
+            android:text="ACTIONS"/>
+
 </RelativeLayout>
