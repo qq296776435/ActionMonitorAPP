@@ -1,10 +1,10 @@
-package jnu.action;
+package jnu.action3;
 
-public class GyrData {
+public class AccData {
     float x, y, z;
     long timestamp;
 
-    public GyrData(float[] values, long timestamp){
+    public AccData(float[] values, long timestamp){
         x = values[0];
         y = values[1];
         z = values[2];

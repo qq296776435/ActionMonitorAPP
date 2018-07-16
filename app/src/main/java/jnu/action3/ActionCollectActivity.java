@@ -1,4 +1,4 @@
-package jnu.action;
+package jnu.action3;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -24,6 +24,7 @@ import java.util.LinkedList;
 public class ActionCollectActivity extends AppCompatActivity implements ServiceConnection {
     private Acts acts;
     private boolean hasStarted;
+    int currentAngle;
     public static UIHandler handler;
 
     static final int POP_SUCCESS = 7;
@@ -34,6 +35,15 @@ public class ActionCollectActivity extends AppCompatActivity implements ServiceC
     private Button stopButton;
     private Button accButton;
     private Button gyrButton;
+    private Button angle0Button;
+    private Button angle45Button;
+    private Button angle90Button;
+    private Button angle135Button;
+    private Button angle180Button;
+    private Button angle225Button;
+    private Button angle270Button;
+    private Button angle315Button;
+    private Button[] angleButtons;
     private LineChart chart;
 
     private ActionCollectService.Binder myBinder;
@@ -59,6 +69,18 @@ public class ActionCollectActivity extends AppCompatActivity implements ServiceC
         stopButton = (Button)findViewById(R.id.action_collect_stop_btn);
         accButton = (Button)findViewById(R.id.action_colect_acc_btn);
         gyrButton = (Button)findViewById(R.id.action_colect_gyr_btn);
+        angle0Button = (Button)findViewById(R.id.Angle_0);
+        angle45Button = (Button)findViewById(R.id.Angle_45);
+        angle90Button = (Button)findViewById(R.id.Angle_90);
+        angle135Button = (Button)findViewById(R.id.Angle_135);
+        angle180Button = (Button)findViewById(R.id.Angle_180);
+        angle225Button = (Button)findViewById(R.id.Angle_225);
+        angle270Button = (Button)findViewById(R.id.Angle_270);
+        angle315Button = (Button)findViewById(R.id.Angle_315);
+        final Button[] angleButtons = {angle0Button,angle45Button,angle90Button,angle135Button,
+                angle180Button,angle225Button,angle270Button,angle315Button};
+        this.angleButtons = angleButtons;
+
         chart = (LineChart)findViewById(R.id.realtime_chart);
 
         handler = new UIHandler();
@@ -103,6 +125,8 @@ public class ActionCollectActivity extends AppCompatActivity implements ServiceC
         yAxis.setAxisMinimum(-10f);
         chart.setData(linedata);
 
+        currentAngle = -1;
+
         startButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,6 +165,119 @@ public class ActionCollectActivity extends AppCompatActivity implements ServiceC
                 linedata.addDataSet(gyr_y);
                 linedata.addDataSet(gyr_z);
                 chart.notifyDataSetChanged();
+            }
+        });
+
+        angle0Button.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+                for (Button button:angleButtons){
+                    button.setEnabled(false);
+                }
+
+                currentAngle = 0;
+
+                startButton.setEnabled(true);
+                startButton.setText(startButton.getText()+" 0°");
+            }
+        });
+        angle45Button.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+                for (Button button:angleButtons){
+                    button.setEnabled(false);
+                }
+
+                currentAngle = 45;
+
+                startButton.setEnabled(true);
+                startButton.setText(startButton.getText()+" 45°");
+            }
+        });
+        angle90Button.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+                for (Button button:angleButtons){
+                    button.setEnabled(false);
+                }
+
+                currentAngle = 90;
+
+                startButton.setEnabled(true);
+                startButton.setText(startButton.getText()+" 90°");
+            }
+        });
+        angle135Button.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+                for (Button button:angleButtons){
+                    button.setEnabled(false);
+                }
+
+                currentAngle = 135;
+
+                startButton.setEnabled(true);
+                startButton.setText(startButton.getText()+" 135°");
+            }
+        });
+        angle180Button.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+                for (Button button:angleButtons){
+                    button.setEnabled(false);
+                }
+
+                currentAngle = 180;
+
+                startButton.setEnabled(true);
+                startButton.setText(startButton.getText()+" 180°");
+            }
+        });
+        angle225Button.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+                for (Button button:angleButtons){
+                    button.setEnabled(false);
+                }
+
+                currentAngle = 225;
+
+                startButton.setEnabled(true);
+                startButton.setText(startButton.getText()+" 225°");
+            }
+        });
+        angle270Button.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                for (Button button:angleButtons){
+                    button.setEnabled(false);
+                }
+
+                currentAngle = 270;
+
+                startButton.setEnabled(true);
+                startButton.setText(startButton.getText()+" 270°");
+            }
+        });
+        angle315Button.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                for (Button button:angleButtons){
+                    button.setEnabled(false);
+                }
+
+                currentAngle = 315;
+
+                startButton.setEnabled(true);
+                startButton.setText(startButton.getText()+" 315°");
             }
         });
     }
@@ -221,6 +358,7 @@ public class ActionCollectActivity extends AppCompatActivity implements ServiceC
             Intent startIntent = new Intent(this, ActionCollectService.class);
             startIntent.putExtra("action_duration", acts.getDuration());
             startIntent.putExtra("group_id", acts.getGroup_id());
+            startIntent.putExtra("angle", currentAngle);
             startService(startIntent);
             bindService(startIntent, this, Context.BIND_AUTO_CREATE);
             Toast.makeText(ActionCollectActivity.this, "Start Collecting...", Toast.LENGTH_SHORT).show();

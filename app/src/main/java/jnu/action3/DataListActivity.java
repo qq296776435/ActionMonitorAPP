@@ -1,4 +1,4 @@
-package jnu.action;
+package jnu.action3;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +10,6 @@ import android.widget.ListView;
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DataListActivity extends AppCompatActivity {
     private ArrayList<Acts> acts;

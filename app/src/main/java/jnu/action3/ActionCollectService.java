@@ -1,4 +1,4 @@
-package jnu.action;
+package jnu.action3;
 
 import android.app.Service;
 import android.content.Intent;
@@ -11,7 +11,6 @@ import android.os.*;
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ActionCollectService extends Service implements SensorEventListener{
     private SensorManager sensorManager;
@@ -22,6 +21,7 @@ public class ActionCollectService extends Service implements SensorEventListener
     private Sensor gyro;
 
     private int group_id;
+    private int angle;
 
     private CountDownTimer startTimer;
     private CountDownTimer tickTimer;
@@ -52,6 +52,7 @@ public class ActionCollectService extends Service implements SensorEventListener
     public int onStartCommand(Intent intent, int flags, int startId){
         int action_duration = intent.getIntExtra("action_duration", 0);
         group_id = intent.getIntExtra("group_id", 0);
+        angle = intent.getIntExtra("angle",-1);
         startTimer = new CountDownTimer(6000, 6000) {
             @Override
             public void onTick(long l) {}
@@ -68,7 +69,7 @@ public class ActionCollectService extends Service implements SensorEventListener
         sp.play(START, 1, 1, 0, 0, 1);
         startTimer.start();
 
-        tickTimer = new CountDownTimer(1000*action_duration+100, 1000){
+        tickTimer = new CountDownTimer(750*action_duration+100, 1000){
             @Override
             public void onTick(long millisUntilFinished) {
                 sp.play(TICK, 1, 1, 0, 0, 1);
@@ -134,16 +135,16 @@ public class ActionCollectService extends Service implements SensorEventListener
         ArrayList<DataRow> dataRows = new ArrayList<>();
         while (i >= 0 && j >= 0){
             if (accDatas.get(i).timestamp > gyrDatas.get(j).timestamp)
-                dataRows.add(new DataRow(accDatas.get(i--), group_id));
+                dataRows.add(new DataRow(accDatas.get(i--), group_id, angle));
             else if (accDatas.get(i).timestamp < gyrDatas.get(j).timestamp)
-                dataRows.add(new DataRow(gyrDatas.get(j--), group_id));
+                dataRows.add(new DataRow(gyrDatas.get(j--), group_id, angle));
             else
-                dataRows.add(new DataRow(accDatas.get(i--), gyrDatas.get(j--), group_id));
+                dataRows.add(new DataRow(accDatas.get(i--), gyrDatas.get(j--), group_id, angle));
         }
         while (i >= 0)
-            dataRows.add(new DataRow(accDatas.get(i--), group_id));
+            dataRows.add(new DataRow(accDatas.get(i--), group_id, angle));
         while (j >= 0)
-            dataRows.add(new DataRow(gyrDatas.get(j--), group_id));
+            dataRows.add(new DataRow(gyrDatas.get(j--), group_id, angle));
 
         DataSupport.saveAll(dataRows);
         int size = dataRows.size();

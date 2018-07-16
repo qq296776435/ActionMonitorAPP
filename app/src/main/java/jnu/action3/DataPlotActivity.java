@@ -1,4 +1,4 @@
-package jnu.action;
+package jnu.action3;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

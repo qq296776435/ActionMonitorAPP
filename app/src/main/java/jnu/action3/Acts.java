@@ -1,4 +1,4 @@
-package jnu.action;
+package jnu.action3;
 
 import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;

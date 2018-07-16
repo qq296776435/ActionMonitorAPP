@@ -8,7 +8,7 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingBottom="@dimen/activity_vertical_margin"
-        tools:context="jnu.action.CreateUserActivity">
+        tools:context="jnu.action3.CreateUserActivity">
 
     <TextView
             android:id="@+id/create_user_uid_txt"

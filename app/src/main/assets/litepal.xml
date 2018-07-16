@@ -32,9 +32,9 @@
     	</list>
     -->
     <list>
-        <mapping class="jnu.action.DataRow" />
-        <mapping class="jnu.action.User" />
-        <mapping class="jnu.action.Acts" />
+        <mapping class="jnu.action3.DataRow" />
+        <mapping class="jnu.action3.User" />
+        <mapping class="jnu.action3.Acts" />
     </list>
 
     <!--

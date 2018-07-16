@@ -11,7 +11,69 @@
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/action_collect_title_txt"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/action_colect_remain_txt">
 
+        <Button
+            android:id="@+id/Angle_0"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="0°" />
+
+        <Button
+            android:id="@+id/Angle_45"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="45°" />
+
+        <Button
+            android:id="@+id/Angle_90"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="90°" />
+
+        <Button
+            android:id="@+id/Angle_135"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="135°" />
+
+        <Button
+            android:id="@+id/Angle_180"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="180°" />
+
+        <Button
+            android:id="@+id/Angle_225"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="225°" />
+
+        <Button
+            android:id="@+id/Angle_270"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="270°" />
+
+        <Button
+            android:id="@+id/Angle_315"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="315°" />
+
+
+    </LinearLayout>
     <TextView
             android:id="@+id/action_colect_remain_txt"
             android:layout_width="wrap_content"
@@ -49,14 +111,16 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/action_colect_acc_btn"
             android:text="GYR"/>
+
     <Button
-            android:id="@+id/action_collect_start_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_style"
-            android:layout_toStartOf="@+id/action_collect_stop_btn"
-            android:layout_marginEnd="10dp"
-            android:text="Start"/>
+        android:id="@+id/action_collect_start_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@+id/action_collect_stop_btn"
+        android:background="@drawable/button_style"
+        android:enabled="false"
+        android:text="Start" />
     <Button
             android:id="@+id/action_collect_stop_btn"
             android:layout_width="wrap_content"

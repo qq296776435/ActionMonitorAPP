@@ -1,4 +1,4 @@
-package jnu.action;
+package jnu.action3;
 
 import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
@@ -15,6 +15,7 @@ public class DataRow extends DataSupport {
 
     private long timestamp;
     private int group_id;
+    private int angle;
 
     public DataRow(AccData accData, int group_id){
         try {
@@ -42,6 +43,40 @@ public class DataRow extends DataSupport {
             setGyr(gyrData.getValue());
             setTimestamp(accData.timestamp);
             setGroup_id(group_id);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public DataRow(AccData accData, int group_id, int angle){
+        try {
+            setAcc(accData.getValue());
+            setTimestamp(accData.timestamp);
+            setGroup_id(group_id);
+            setAngle(angle);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public DataRow(GyrData gyrData, int group_id, int angle){
+        try {
+            setAcc(gyrData.getValue());
+            setTimestamp(gyrData.timestamp);
+            setGroup_id(group_id);
+            setAngle(angle);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public DataRow(AccData accData, GyrData gyrData, int group_id, int angle){
+        try {
+            setAcc(accData.getValue());
+            setGyr(gyrData.getValue());
+            setTimestamp(accData.timestamp);
+            setGroup_id(group_id);
+            setAngle(angle);
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -105,5 +140,13 @@ public class DataRow extends DataSupport {
 
     public String toString(){
         return String.format("(%f, %f, %f, %f, %f, %f)", acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z);
+    }
+
+    public int getAngle() {
+        return angle;
+    }
+
+    public void setAngle(int angle) {
+        this.angle = angle;
     }
 }

@@ -1,4 +1,4 @@
-package jnu.action;
+package jnu.action3;
 
 class Action {
     private int id;
